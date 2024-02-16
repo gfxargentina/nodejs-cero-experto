@@ -1,25 +1,11 @@
-import fs from 'fs';
+import { yarg } from './config/plugins/yargs.plugin';
 
-let outputMessage = '';
-const base = 5;
-const headerMessage = `
-=============================================
-        Tabla del ${base}
-=============================================\n        
-`;
+//funcion anonima auto-invocada asincrona, para poder ejectur codigo asincrono en archivo principal
+// () los parentesis al final invocan(ejecutan) la funcion
+(async () => {
+  await main();
+})();
 
-for (let i = 1; i <= 10; i++) {
-  outputMessage += `${base} x ${i} = ${base * i}\n`;
+async function main() {
+  console.log('main ejecutado');
 }
-
-outputMessage = headerMessage + outputMessage;
-console.log(outputMessage);
-
-const outputPath = `outputs`;
-
-//crear el directorio, la opcion recursive permite crear mas subdirectorios
-fs.mkdirSync(outputPath, { recursive: true });
-
-//grabar en archivo de salida
-fs.writeFileSync(`outputs/tabla-${base}.txt`, outputMessage);
-console.log('Archivo Creado');
