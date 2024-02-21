@@ -8,9 +8,15 @@ import { Server } from './presentation/server-app';
 })();
 
 async function main() {
-  const { b: base, l: limit, s: showTable } = yarg;
+  const {
+    b: base,
+    l: limit,
+    s: showTable,
+    n: fileName,
+    d: fileDestination,
+  } = yarg;
 
-  Server.run({ base, limit, showTable: true });
+  Server.run({ base, limit, showTable: true, fileName, fileDestination });
 
   console.log('main ejecutado');
 }

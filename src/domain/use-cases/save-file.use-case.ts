@@ -6,7 +6,7 @@ export interface SaveFileUseCase {
 
 export interface Options {
   fileContent: string;
-  destination?: string;
+  fileDestination?: string;
   fileName?: string;
 }
 
@@ -15,15 +15,15 @@ export class SaveFile implements SaveFileUseCase {
 
   execute({
     fileContent,
-    destination = 'outputs',
+    fileDestination = 'outputs',
     fileName = 'table',
   }: Options): boolean {
     try {
       //crear el directorio, la opcion recursive permite crear mas subdirectorios
-      fs.mkdirSync(destination, { recursive: true });
+      fs.mkdirSync(fileDestination, { recursive: true });
 
       //grabar en archivo de salida
-      fs.writeFileSync(`${destination}/${fileName}.txt`, fileContent);
+      fs.writeFileSync(`${fileDestination}/${fileName}.txt`, fileContent);
       //console.log('archivo creado');
       return true;
     } catch (error) {
