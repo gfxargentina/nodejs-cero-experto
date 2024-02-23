@@ -60,4 +60,33 @@ describe('SaveFileUseCase', () => {
     expect(fileExist).toBe(true);
     expect(fileContent).toBe(customOptions.fileContent);
   });
+
+  //prueba las exepciones(errores)
+  it('should return false if directory could not be created', () => {
+    const saveFile = new SaveFile();
+    //spyOn espia el metodo, mockImplementation: implementa lo que quieras devolver
+    const mkdirSpy = jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {
+      throw new Error('Custom error from testing');
+    });
+
+    const result = saveFile.execute(customOptions);
+    expect(result).toBe(false);
+    //para limpiar el mock de spyOn asi no afecte la siguiente prueba,
+    //porque el spyOn persiste para las siguiente pruebas
+    //si no se limpia manualmente
+    mkdirSpy.mockRestore();
+  });
+
+  it('should return false if file could not be created', () => {
+    const saveFile = new SaveFile();
+    const writeFileSpy = jest
+      .spyOn(fs, 'writeFileSync')
+      .mockImplementation(() => {
+        throw new Error('Custom writing error from testing');
+      });
+
+    const result = saveFile.execute({ fileContent: 'hola' });
+    expect(result).toBe(false);
+    writeFileSpy.mockRestore();
+  });
 });
