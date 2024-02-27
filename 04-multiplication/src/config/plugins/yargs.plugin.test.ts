@@ -10,16 +10,57 @@ const runCommand = async (args: string[]) => {
 };
 
 describe('test args.plugins', () => {
+  const originalArgv = process.argv;
+
+  beforeEach(() => {
+    process.argv = originalArgv;
+    jest.resetModules();
+  });
+
   it('should return default values', async () => {
-    const argv = await runCommand(['-b', '5']);
+    const argv = await runCommand([
+      '-b',
+      '5',
+      '-l',
+      '10',
+      '-s',
+      '-n',
+      'custom-name',
+      '-d',
+      'custom-dir',
+    ]);
 
     expect(argv).toEqual(
       expect.objectContaining({
         b: 5,
         l: 10,
-        s: false,
+        s: true,
         n: 'multiplication-table',
         d: 'outputs',
+      })
+    );
+  });
+
+  it('should return configuration with custom values', async () => {
+    const argv = await runCommand([
+      '-b',
+      '8',
+      '-l',
+      '20',
+      '-s',
+      '-n',
+      'custom-name',
+      '-d',
+      'custom-dir',
+    ]);
+
+    expect(argv).toEqual(
+      expect.objectContaining({
+        b: 8,
+        l: 20,
+        s: true,
+        n: 'custom-name',
+        d: 'custom-dir',
       })
     );
   });
