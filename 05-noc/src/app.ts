@@ -1,9 +1,9 @@
 import { Server } from './presentation/server';
 
 //funcion anonima autoinvocada asyncrona
-async () => {
+(async () => {
   main();
-};
+})();
 
 function main() {
   Server.start();
