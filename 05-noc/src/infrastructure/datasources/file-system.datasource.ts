@@ -27,10 +27,13 @@ export class FileSystemDatasource implements LogDatasource {
   };
 
   async saveLog(newLog: LogEntity): Promise<void> {
+    //Convierte el objeto newLog a formato JSON
     const logAsJson = `${JSON.stringify(newLog)}`;
 
     fs.appendFileSync(this.allLogsPath, logAsJson);
 
+    //Agrega el registro de log al archivo de logs correspondiente (allLogsPath, mediumLogsPath, highLogsPath)
+    //según el nivel de gravedad del log (level)
     if (newLog.level === LogSeverityLevel.low) return;
 
     if (newLog.level === LogSeverityLevel.medium) {
@@ -40,16 +43,23 @@ export class FileSystemDatasource implements LogDatasource {
     }
   }
 
+  //Este método privado toma una ruta de archivo como argumento y lee los logs desde ese archivo.
   private getLogsFromFile = (path: string): LogEntity[] => {
     const content = fs.readFileSync(path, 'utf-8');
-    //son lo mismo linea 46-47
+    //son lo mismo linea 50-52
     // const logs = content.split('\n').map(LogEntity.fromJson);
+    //Divide el contenido del archivo en líneas y los convierte en objetos LogEntity
     const logs = content.split('\n').map((log) => LogEntity.fromJson(log));
 
     return logs;
   };
 
+  //Este método asincrónico toma un nivel de gravedad de log (severityLevel) como argumento.
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    //Lee los registros de log desde el archivo correspondiente (allLogsPath, mediumLogsPath, highLogsPath)
+    //según el nivel de gravedad proporcionado.
+    //Devuelve los registros de log recuperados como un array de objetos LogEntity.
+    // Si el nivel de gravedad no está reconocido, lanza un error.
     switch (severityLevel) {
       case LogSeverityLevel.low:
         return this.getLogsFromFile(this.allLogsPath);
