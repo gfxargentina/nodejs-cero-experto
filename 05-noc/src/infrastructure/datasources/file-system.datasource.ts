@@ -3,15 +3,20 @@ import { LogDatasource } from '../../domain/datasources/log.datasource';
 import { LogEntity, LogSeverityLevel } from '../../domain/entities/log.entity';
 
 export class FileSystemDatasource implements LogDatasource {
+  //Se declaran algunas propiedades de solo lectura que contienen rutas de archivo relacionadas con los logs.
   private readonly logPath = 'logs/';
   private readonly allLogsPath = 'logs/logs-low.log';
   private readonly mediumLogsPath = 'logs/logs-medium.log';
   private readonly highLogsPath = 'logs/logs-high.log';
 
+  //Se define un constructor que llama al método createLogsFile()
   constructor() {
     this.createLogsFile();
   }
 
+  //Este método verifica si el directorio especificado en logPath existe. Si no existe, lo crea.
+  //Luego, utiliza un forEach para iterar sobre un array de rutas de logs (allLogsPath, mediumLogsPath, highLogsPath).
+  //Para cada ruta, verifica si el archivo existe. Si no existe, crea un archivo vacío en esa ruta.
   private createLogsFile = () => {
     if (!fs.existsSync(this.logPath)) {
       fs.mkdirSync(this.logPath);
