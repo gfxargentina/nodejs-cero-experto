@@ -1,7 +1,7 @@
 import { CheckService } from '../domain/use-cases/checks/check-service';
 import { CronService } from './cron/cron-service';
 
-export class Server {
+export class clsServer {
   public static start() {
     console.log('Servidor Corriendo...');
     CronService.createJob('*/3 * * * * *', () => {
