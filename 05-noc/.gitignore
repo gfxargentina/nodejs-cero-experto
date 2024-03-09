@@ -3,7 +3,7 @@ node_modules/
 .env.local
 dist/
 outputs/
-
+logs/
 custom-outputs/
 test-destination/
 coverage/
