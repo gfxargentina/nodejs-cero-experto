@@ -14,6 +14,7 @@ export class Server {
       const url = 'https://google.com';
 
       new CheckService(
+        fileSystemLogRepository,
         () => console.log(`${url} is up!!`),
         (error) => console.log(error)
       ).execute(url);

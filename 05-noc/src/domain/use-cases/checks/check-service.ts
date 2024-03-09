@@ -15,9 +15,9 @@ type ErrorCallback = (error: string) => void;
 export class CheckService implements CheckServiceUseCase {
   //inyeccion de dependencias
   constructor(
+    private readonly logRepository: LogRepository,
     private readonly successCallback: SuccessCallback,
-    private readonly errorCallback: ErrorCallback,
-    private readonly logRepository: LogRepository
+    private readonly errorCallback: ErrorCallback
   ) {}
 
   public async execute(url: string): Promise<boolean> {
