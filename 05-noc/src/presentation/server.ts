@@ -12,13 +12,16 @@ export class Server {
   public static start() {
     console.log('Servidor Corriendo...');
 
-    //enviar email
     const emailService = new EmailService();
-    emailService.sendEmail({
-      to: 'gfxargentina@gmail.com',
-      subject: 'Test Nodemailer',
-      htmlBody: `<h2>Logs de Sistema NOC - Nodemailer</h2>`,
-    });
+    //enviar email
+    // emailService.sendEmail({
+    //   to: 'gfxargentina@gmail.com',
+    //   subject: 'Test Nodemailer',
+    //   htmlBody: `<h2>Logs de Sistema NOC - Nodemailer</h2>`,
+    // });
+
+    //enviar email con attachements
+    emailService.sendEmailWithFileSystemLogs(['gfxargentina@gmail.com']);
 
     // CronService.createJob('*/3 * * * * *', () => {
     //   const url = 'https://google.com';
