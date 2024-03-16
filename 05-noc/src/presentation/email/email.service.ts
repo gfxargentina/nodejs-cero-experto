@@ -48,8 +48,8 @@ export class EmailService {
     const htmlBody = `<h2>Logs del Sistema NOC</h2>`;
 
     const attachments: Attachment[] = [
-      { filename: 'logs-all.log', path: '../../../logs/logs-low.log' },
-      { filename: 'logs-high.log', path: '../../../../logs/logs-high.log' },
+      { filename: 'logs-all.log', path: './logs/logs-low.log' },
+      { filename: 'logs-high.log', path: './logs/logs-high.log' },
     ];
 
     return this.sendEmail({
