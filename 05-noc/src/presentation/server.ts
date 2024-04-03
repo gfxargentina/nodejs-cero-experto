@@ -12,7 +12,7 @@ export class Server {
   public static start() {
     console.log('Servidor Corriendo...');
 
-    const emailService = new EmailService();
+    const emailService = new EmailService(fileSystemLogRepository);
     //enviar email
     // emailService.sendEmail({
     //   to: 'gfxargentina@gmail.com',
@@ -21,16 +21,16 @@ export class Server {
     // });
 
     //enviar email con attachements
-    emailService.sendEmailWithFileSystemLogs(['gfxargentina@gmail.com']);
+    //emailService.sendEmailWithFileSystemLogs(['gfxargentina@gmail.com']);
 
-    // CronService.createJob('*/3 * * * * *', () => {
-    //   const url = 'https://google.com';
+    CronService.createJob('*/3 * * * * *', () => {
+      const url = 'https://google.com';
 
-    //   new CheckService(
-    //     fileSystemLogRepository,
-    //     () => console.log(`${url} is up!!`),
-    //     (error) => console.log(error)
-    //   ).execute(url);
-    // });
+      new CheckService(
+        fileSystemLogRepository,
+        () => console.log(`${url} is up!!`),
+        (error) => console.log(error)
+      ).execute(url);
+    });
   }
 }
