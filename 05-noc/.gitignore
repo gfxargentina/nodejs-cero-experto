@@ -7,3 +7,4 @@ logs/
 custom-outputs/
 test-destination/
 coverage/
+mongo/
