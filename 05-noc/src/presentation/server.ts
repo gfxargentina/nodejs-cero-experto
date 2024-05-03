@@ -34,14 +34,14 @@ export class Server {
     //enviar email con attachements
     //emailService.sendEmailWithFileSystemLogs(['gfxargentina@gmail.com']);
 
-    CronService.createJob('*/3 * * * * *', () => {
-      const url = 'https://tarjetasanimadas.com.ar';
+    // CronService.createJob('*/3 * * * * *', () => {
+    //   const url = 'https://tarjetasanimadas.com.ar';
 
-      new CheckService(
-        LogRepository,
-        () => console.log(`${url} is up!!`),
-        (error) => console.log(error)
-      ).execute(url);
-    });
+    //   new CheckService(
+    //     LogRepository,
+    //     () => console.log(`${url} is up!!`),
+    //     (error) => console.log(error)
+    //   ).execute(url);
+    // });
   }
 }
